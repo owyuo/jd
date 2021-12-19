@@ -60,62 +60,72 @@ for (let i=0;i<tabMenu_li.length;i++){
 // }
 
 /***头部搜索栏****/
-// let topInput = $('.search_item input[type="text"]');
-// let ul = $('.input_content');
-// let timer= '';
-// let timer1 = '';
-// topInput.oninput = function (){
-//     clearInterval(timer);
-//     clearInterval(timer1);
-//     timer = setTimeout(() => {
-//         this.value && sendRequest(this.value);
-//     }, 1000);
-//     timer1 = setTimeout(() => {
-//         if(!this.value){
-//             ul.innerHTML = '';
-//         }
-//     }, 2000);
-// }
-// function sendRequest(keyword){
-//     let sc = document.createElement('script');
-//     sc.src="https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=" + keyword + "&json=1&p=3&sid=22084_1436_13548_21120_22036_22073&req=2&csor=0&cb=callback";
-//     document.head.appendChild(sc);
-//     sc.remove();
-// }
-// function callback(data){
-//     let {s} = data;
-//     s.forEach(keyword =>{
-//         let li =document.createElement('li');
-//         li.innerHTML = keyword;
-//         ul.appendChild(li);
-//     }
-//     )
-// }
+let topInput = $('.search_item input[type="text"]');
+let ul = $('.input_content');
+let timer= '';
+let timer1 = '';
+topInput.oninput = function (){
+    clearInterval(timer);
+    clearInterval(timer1);
+    timer = setTimeout(() => {
+        this.value && sendRequest(this.value);
+    }, 1000);
+    timer1 = setTimeout(() => {
+        if(!this.value){
+            ul.innerHTML = '';
+        }
+    }, 2000);
+}
+function sendRequest(keyword){
+    let sc = document.createElement('script');
+    sc.src="https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=" + keyword + "&json=1&p=3&sid=22084_1436_13548_21120_22036_22073&req=2&csor=0&cb=callback";
+    document.head.appendChild(sc);
+    sc.remove();
+}
+function callback(data){
+    let {s} = data;
+    s.forEach(keyword =>{
+        let li =document.createElement('li');
+        li.innerHTML = keyword;
+        ul.appendChild(li);
+    }
+    )
+}
 
-/*****轮播图*****/
+/*****第一个大轮播图*****/
 let container = $('.shop_nav .lunbotu .content');
 let pic = container.children
-let numBtn = document.querySelector('li')
+let numBtn = $('.dotted');
+let next = $('.lunbotu .btn_r');
+let prev =$('.lunbotu .btn_l');
+let showBtn = $('.shop_nav .lunbotu');
+
+//鼠标划入时显示按钮划出时按钮隐藏
+showBtn.onmouseenter = function(){
+    next.style.display = 'block';
+    prev.style.display = 'block';
+}
+showBtn.onmouseleave = function(){
+    next.style.display = 'none';
+    prev.style.display = 'none';
+}
         //动态创建数字按钮
         function setNumbtn() {
             for (let i = 0; i < pic.length; i++) {
-                let li = document.createElement('li')
-                li.innerHTML = i + 1
-                numBtn.appendChild(li)
-            }
-            //给第一个数字按钮设置背景  
-            numBtn.children[0].className = 'active'
-            //把第一张图片赋值给最后面，表示不仅复制了li标记，还把他里面的图片复制了
-            //作用：实现无缝轮播
-            let first = pic[0].cloneNode(true)
-            container.appendChild(first)
+                let li = document.createElement('li');
+                numBtn.appendChild(li);
+            }  
+            numBtn.children[0].className = 'active';
+    //把第一张图片赋值给最后面，true表示不仅复制了li标记，还把他里面的图片复制了
+            let first = pic[0].cloneNode(true);
+            container.appendChild(first);
         }
         setNumbtn()
+
         //点击按钮切换图片
         //当点击过快时，事件重复触发，并没有进入回调函数
         //解决方式：开关
         function picSwitch() {
-            //numBtn.children表示ol标记下的所有li
             for (let i = 0; i < numBtn.children.length; i++) {
                 //设置自定义属性，得到下标ol下li的下标
                 numBtn.children[i].setAttribute('index', i)
@@ -136,12 +146,8 @@ let numBtn = document.querySelector('li')
             }
         }
         picSwitch()
-        // 无缝轮播图原理
-        //+ 由于每一张图片大小是一样的，把第一张图片复制一张给拼接到所有图片的最后面
-        //+ 当执行到拼接的这种图片的时候，让程序一瞬间把它拉回到第一张图片，由于第一张图片和最后一张图片
-        //长得一模一样，可以骗过眼睛
         let num = 0
-        let circle = 0;
+        let cir = 0;
         //使用开关的思路解决点击过快不执行判断条件的情况
         let flag = true;
         next.onclick = function () {
@@ -155,14 +161,14 @@ let numBtn = document.querySelector('li')
                     }
                     flag=true;
                 })
-                circle++;
-                if (circle > numBtn.children.length-1) {
-                    circle = 0;
+                cir++;
+                if (cir > numBtn.children.length-1) {
+                    cir = 0;
                 }
                 for (let j = 0; j < numBtn.children.length; j++) {
                     numBtn.children[j].className = ''
                 }
-                numBtn.children[circle].className = 'active'
+                numBtn.children[cir].className = 'active'
             }
         }
         //点击左侧按钮进行切换
@@ -177,14 +183,14 @@ let numBtn = document.querySelector('li')
                 animation(container, -pic[0].offsetWidth * num, 'left', function () {
                    flag=true;
                 })
-                circle--;
-                if (circle < 0) {
-                    circle = numBtn.children.length-1;
+                cir--;
+                if (cir < 0) {
+                    cir = numBtn.children.length-1;
                 }
                 for (let j = 0; j < numBtn.children.length; j++) {
                     numBtn.children[j].className = ''
                 }
-                numBtn.children[circle].className = 'active'
+                numBtn.children[cir].className = 'active'
             }
         }
         //自动轮播
@@ -193,7 +199,7 @@ let numBtn = document.querySelector('li')
             timer2=setInterval(() => {
                 //next.onclick里面保存的是函数，所以加括号就可以直接调用
                 next.onclick()
-            }, 3000);
+            }, 2000);
         }
         auto()
         //鼠标移入时自动轮播停止
@@ -203,6 +209,78 @@ let numBtn = document.querySelector('li')
         container.parentNode.onmouseout = function(){
             auto()
         }
+
+
+/***第二个小轮播**/
+
+let swiper_container = $('.right_lunbotu .right_content1');
+right_pic = swiper_container.children;
+let showBtn_right = $('.right_lunbotu');
+let swiper_next =$('.right_lunbotu .btn .btn_r');
+let swiper_prev=$('.right_lunbotu .btn .btn_l');
+
+//克隆第一张图片
+let first_item = right_pic[0].cloneNode(true);
+swiper_container.appendChild(first_item);
+
+
+//鼠标划入划出
+showBtn_right.onmouseenter = function(){
+    swiper_next.style.display = 'block';
+    // console.log(123);
+    swiper_prev.style.display = 'block';
+}
+showBtn_right.onmouseleave = function(){
+    swiper_next.style.display = 'none';
+    swiper_prev.style.display = 'none';
+}
+
+let numb = 0;
+let flag1 =true; 
+swiper_next.onclick = function () {
+    if (flag1) {
+        flag1=false;
+        numb++;
+        animation(swiper_container, -right_pic[0].offsetWidth * numb, 'left', function () {
+            if (numb == right_pic.length - 1) {
+                numb = 0;
+                swiper_container.style.left = 0;
+            }
+            flag1=true;
+        })
+    }
+}
+//点击左侧按钮进行切换
+swiper_prev.onclick = function(){
+    if (flag1) {
+        flag1=false;
+        if (numb == 0) {
+            numb = right_pic.length - 1;
+            swiper_container.style.left = -right_pic[0].offsetWidth*numb+'px';
+            }
+        num--;
+        animation(swiper_container, -right_pic[0].offsetWidth * numb, 'left', function () {
+           flag1=true;
+        })
+    }
+}
+//自动轮播
+let timer3 = null;
+function right_auto(){
+            timer3=setInterval(() => {
+                //next.onclick里面保存的是函数，所以加括号就可以直接调用
+                swiper_next.onclick()
+            }, 2000);
+        }
+        right_auto()
+        //鼠标移入时自动轮播停止
+        swiper_container.parentNode.onmouseover = function(){
+            clearInterval(timer3)
+        }
+        swiper_container.parentNode.onmouseout = function(){
+            right_auto()
+        }
+
 /*
     缓动动画封装
     + 注意点：缓动动画的步长需要使用缓动动画公式直接计算出来，所以不需要自己传值进去
@@ -215,13 +293,13 @@ function animation(ele, target, attr, callback) {
     clearInterval(ele.timer)
     ele.timer = setInterval(function () {
         //开始位置  width:200px  200px + 10px  210px + 10px
-        var begin = parseFloat(getStyle(ele, attr))
+        let begin = parseFloat(getStyle(ele, attr))
         //步长
-        var step = (target - begin) / 10
+        let step = (target - begin) / 10
         //判断
         step = step > 0 ? Math.ceil(step) : Math.floor(step)
         //赋值结果
-        var res = begin + step
+        let res = begin + step
         //给元素进行赋值操作
         ele.style[attr] = res + 'px'
         //清除下定时器
@@ -234,6 +312,56 @@ function animation(ele, target, attr, callback) {
         }
     }, 30)
 }
+//获取属性封装
+function getStyle(ele, attr) {
+    if (window.getComputedStyle) {
+        return getComputedStyle(ele, null)[attr]
+    } else {
+        return ele.currentStyle[attr]
+    }
+}
+
+/***抢购倒计时**/
+
+
+let hoursBox = $('.count_time .hour');
+let minuteBox = $('.count_time .minute');
+let secondsBox = $('.count_time .seconds');
+
+//设置将来的时间
+let  endTime = new Date('2021/12/23 00:00:00');
+//先调用一次,页面初次加载时显示的是h1标签中给定的时间，然后再显示现在的时间
+//需要先调用一次函数直接显示现在的时间，然后一秒之后再调用定时器里的djs
+djs();
+//使用定时器获取时间
+setInterval(djs, 1000);
+function djs() {
+    //设置现在的时间
+    let nowTime = new Date();
+    //获取总的秒数
+    let seconds = parseInt((endTime.getTime() - nowTime.getTime()) / 1000);
+    // //天数
+    // let day = complement(parseInt(seconds / 3600 / 24));
+    //小时
+    let hours = complement(parseInt(seconds / 3600 % 24));
+
+    //分钟
+    let minutes = complement(parseInt(seconds / 60 % 60));
+
+    //秒
+    let s = complement(parseInt(seconds % 60));
+    //赋值
+    hoursBox.innerHTML = hours;
+    minuteBox.innerHTML = minutes;
+    secondsBox.innerHTML = s;
+}
+//补位操作：当分钟显示个位数时在前面添加0
+function complement(num) {
+    return num < 10 ? num = '0' + num : num
+}
+
+
+/**秒杀轮播图****/
 
 
 

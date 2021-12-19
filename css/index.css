@@ -60,9 +60,12 @@
   border-radius: 12px;
   background-color: #fff;
 }
+.shop_nav .lunbotu .dotted li.active{
+  background-color: rgb(102, 102, 102);
+}
 .shop_nav .lunbotu .btn_l,
 .shop_nav .lunbotu .btn_r {
-  display: block;
+  display: none;
   position: absolute;
   left: 0;
   top: 220px;
@@ -117,7 +120,7 @@
 }
 .shop_nav .right_lunbotu .btn .btn_l,
 .shop_nav .right_lunbotu .btn .btn_r {
-  display: none;
+  display: block;
   position: absolute;
   left: 0;
   top: 220px;
