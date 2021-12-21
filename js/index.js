@@ -281,46 +281,6 @@ function right_auto(){
             right_auto()
         }
 
-/*
-    缓动动画封装
-    + 注意点：缓动动画的步长需要使用缓动动画公式直接计算出来，所以不需要自己传值进去
-    @param {object} ele 表示要做动画的元素
-    @param {number} target 表示目标值
-    @param {string} attr 表示要做动画的属性
-    @param {function} callback 回调函数，当前函数执行完毕后，后面的回调函数执行
-*/
-function animation(ele, target, attr, callback) {
-    clearInterval(ele.timer)
-    ele.timer = setInterval(function () {
-        //开始位置  width:200px  200px + 10px  210px + 10px
-        let begin = parseFloat(getStyle(ele, attr))
-        //步长
-        let step = (target - begin) / 10
-        //判断
-        step = step > 0 ? Math.ceil(step) : Math.floor(step)
-        //赋值结果
-        let res = begin + step
-        //给元素进行赋值操作
-        ele.style[attr] = res + 'px'
-        //清除下定时器
-        if (res == target) {
-            clearInterval(ele.timer)
-            //如果咱们传递了这个函数，那就执行，如果没有就不执行
-            if (callback) {
-                callback()
-            }
-        }
-    }, 30)
-}
-//获取属性封装
-function getStyle(ele, attr) {
-    if (window.getComputedStyle) {
-        return getComputedStyle(ele, null)[attr]
-    } else {
-        return ele.currentStyle[attr]
-    }
-}
-
 /***抢购倒计时**/
 
 
@@ -329,7 +289,7 @@ let minuteBox = $('.count_time .minute');
 let secondsBox = $('.count_time .seconds');
 
 //设置将来的时间
-let  endTime = new Date('2021/12/23 00:00:00');
+let  endTime = new Date('2021/12/23 10:00:00');
 //先调用一次,页面初次加载时显示的是h1标签中给定的时间，然后再显示现在的时间
 //需要先调用一次函数直接显示现在的时间，然后一秒之后再调用定时器里的djs
 djs();
@@ -362,14 +322,42 @@ function complement(num) {
 
 
 /**秒杀轮播图****/
+let seckill_container = $('.miaosha_lunbo .miaosha_content');
+let seckill_pic = seckill_container.children;
+let seckill_next = $('.miaosha_lunbo .btn_r');
+let seckill_prev = $('.miaosha_lunbo .btn_l');
+let seckill_num = 0;
+let seckill_cir = 0;
+let seckill_flag = true;
+//点击按钮切换
+seckill_next.onclick = function () {
+    if (seckill_flag) {
+        seckill_flag=false;
+        seckill_num++;
+        animation(seckill_container, -seckill_pic[0].offsetWidth * seckill_num, 'left', function () {
+            if (seckill_num == seckill_pic.length - 1) {
+                seckill_num = 0;
+                seckill_container.style.left = 0;
+                }
+                seckill_flag=true;
+                })
+            }
+        }
+        //点击左侧按钮进行切换
+seckill_prev.onclick = function(){
+    if (seckill_flag) {
+        seckill_flag=false;
+        if (seckill_num == 0) {
+            seckill_num = seckill_pic.length - 1;
+            seckill_container.style.left = -seckill_pic[0].offsetWidth*seckill_num+'px';
+            }
+            seckill_num--;
+            animation(seckill_container, -seckill_pic[0].offsetWidth * seckill_num, 'left', function () {
+                seckill_flag=true;
+                })
+            }
+        }
+       
 
 
 
-/****获取节点的函数***/
-function $ (ele){
-    return document.querySelector(ele);
-}
-
-function $$(elem){
-    return document.querySelectorAll(elem);
-}
