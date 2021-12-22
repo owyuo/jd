@@ -18,7 +18,7 @@ $('#saoma').onclick = function(){
     qrcode.style.display = 'block';
 }
 $('.saoma .saoma_img').onmouseenter = function(){
-    // $('.phone_img').fadeIn();
+    // $('.phone_img').style.fadeIn = '10'
     $('.phone_img').style.display = 'block';
     $('.code_img').style.marginLeft = '10px';
 }

@@ -141,6 +141,7 @@
   border: 1px solid #999;
   font-size: 15px;
   color: #666;
+  vertical-align: top;
 }
 .register .now_step_caozuo .phone_code .code {
   width: 290px;
