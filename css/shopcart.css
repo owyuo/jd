@@ -376,6 +376,10 @@
   border: 1px solid #ccc;
   padding: 5px;
 }
+.c-container .cart-item .p-goods .p-img img{
+  width: 80px;
+  height: 80px;
+}
 .c-container .cart-item .p-goods .p-msg {
   float: left;
   width: 210px;
@@ -477,6 +481,11 @@
   float: left;
 }
 .cart-floatbar .amount-sum em {
+  font-weight: 700;
+  color: #E2231A;
+  padding: 0 3px;
+}
+.cart-floatbar .price-sum i{
   font-weight: 700;
   color: #E2231A;
   padding: 0 3px;

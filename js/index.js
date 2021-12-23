@@ -35,8 +35,8 @@ for (let i=0;i<tabMenu_li.length;i++){
     $$('.user_tab_items .tab_item')[i].onmouseenter = function(event){
         let target =event.target;
             if(target.nodeType ==1){
-                console.log(this);
-                console.log(this.childNodes.childNodes);
+                // console.log(this);
+                // console.log(this.childNodes.childNodes);
                 this.childNodes[3].style.display='block';
         }
     }
@@ -360,45 +360,55 @@ seckill_prev.onclick = function(){
             }
         }
        
-//加入购物车
+/*******加入购物车***********/
 let index_ul = $('.for_you_goodslist');
-console.log(index_ul);
+// console.log(index_ul);
 async function getGoods() {
     let data = await axios.get({
         url:'./js/data.json',
         data:''
-    }).then(()=>{
-        console.log(data);
-    })
-    let html ='';
-    data.forEach(goods=>{
-        html+=`<li>
-        <img src="${goods.src}" alt=" ">
-        <div class="goods_msg ">
-            <h4 class="googs_title two_row ">
-                 ${goods.name}
-            </h4>
-            <div class="price ">
-                <i>￥</i>${goods.price}<i>00</i>
+    }).then((data)=>{
+        // console.log(data);
+        let html ='';
+        data.forEach(goods=>{
+            html+=`<li>
+            <img src="${goods.src}" alt=" ">
+            <div class="goods_msg ">
+                <h4 class="googs_title two_row ">
+                     ${goods.name}
+                </h4>
+                <div class="price ">
+                    <i>￥</i>${goods.price}<i>00</i>
+                </div>
+                <a  href="#none" class="nomean" onclick="addCart(${goods.id},1)">加入购物车</a>
+                <div class="lookfor_sim ">
+                    <div class="xiangsi ">找相似</div>
+                </div>
             </div>
-            <a  href="#none" class="nomean" onclick="addCart(${goods.id},1)">加入购物车</a>
-            <div class="lookfor_sim ">
-                <div class="xiangsi ">找相似</div>
-            </div>
-        </div>
-    </li>`
+        </li>`
     })
     index_ul.innerHTML =html;
+    })
+    
 } 
 
-
 getGoods();
-function addCart(){
+function addCart(id,num){
     let cartGoods = localStorage.getItem('cart');
+    //如果购物车中已经有数据
     if(cartGoods){
-        console.log(123);
-    }else{
-        cartGoods =  {[id]:num}
+        // console.log(123);
+        cartGoods = JSON.parse(cartGoods);
+        for (let i in cartGoods){
+            console.log(i,cartGoods);
+            i == id && (num = num +cartGoods[i]);
+        }
+        cartGoods[id] = num ;
         localStorage.setItem('cart',JSON.stringify(cartGoods))
+
+    }else{
+        //不存在数据
+        cartGoods =  {[id]:num}
+        localStorage.setItem('cart',JSON.stringify(cartGoods));
     }
 }

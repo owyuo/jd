@@ -9,8 +9,10 @@
     <link rel="icon" href="images/favicon.ico" mce_href="//www.jd.com/favicon.ico" type="image/x-icon" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="renderer" content="webkit" />
+    <link rel="stylesheet" href="./css/cssreset.css">
     <link rel="stylesheet" href="./css/base.css">
     <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/sign-up.css">
     <link rel="stylesheet" href="./css/register.css">
 
 </head>
@@ -31,58 +33,172 @@
 
     <!-- 注册页面 start -->
     <div class="register">
-        <div class="w">
-            <ul class="top_buzhou">
-                <li class="now_progress">
-                    <span class="now_step now_step_style">1</span>
-                    <p class="step_tip step_tip_style">验证手机号</p>
-                </li>
-                <li class="step_jiantou"></li>
-                <li class="now_progress">
-                    <span class="now_step">2</span>
-                    <p class="step_tip">填写账号信息</p>
-                </li>
-                <li class="step_jiantou now_progress_two"></li>
-                <li class="now_progress">
-                    <span class="now_step">3</span>
-                    <p class="step_tip">注册成功</p>
-                </li>
-            </ul>
-            <div class="now_step_caozuo now_progress_one">
-                <div class="phone_code">
-                    <select name="" id="" class="loc">
-                        <option value="">中国 0086</option>
-                    </select>
-                    <input type="tel" name="" id="" class="code" placeholder="建议使用常用手机号" maxlength="11">
-                    <div class="tip_right tip"></div>
-                    <button class="tip_wrong tip"></button>
-                    <div class="geshi_tip geshi_tip_yanzheng">验证完成后，你可以使用该手机登录或找回密码</div>
-                    <div class="geshi_tip geshi_tip_wrong">格式错误</div>
-                </div>
-                <button class="btn_yanzheng">点击按钮进行验证</button>
-                <div class="container">
-                    <div id="captcha"></div>
-                    <div id="msg"></div>
-                </div>
-                <!-- 手机验证码 -->
-                <div class="code_yanzheng">
-                    <div class="yanzheng">
-                        <label>手机验证码</label>
-                        <input type="text" name="mobileCode" maxlength="6" autocomplete="off" id="phoneCode" class="phonecode" placeholder="输入验证码">
-                        <span class="i-status">该手机号还可以获取<i class="yanzheng_count">3</i>次验证码，请尽快验证</span>
-                        <button class="i-cancel"></button>
-                    </div>
-                    <button id="getPhoneCode" class="btn-phonecode" type="button">重新获取</button>
-                    <div class="audio-tip">收不到短信验证码？点击&nbsp;<a class="get-auth-code" href="javascript:;">获取语音验证码</a></div>
-                </div>
-                <button class="next_tip" disabled>下一步</button>
-                <div class="user_class">
-                    <div class="qiye_user"><a href="javascript:;">企业用户注册</a></div>
-                    <div class="haiwai_user"><a href="javascript:;">海外用户注册</a></div>
-                </div>
+        <form action="./sign-up-two.html">
+            <div class="fix">                
             </div>
-        </div>
+         <header>   
+         </header>
+         <main>        
+            <ul>
+                  <li class="c1"><span class="green1 one">1</span><span class="green2 two">验证手机号</span></li>
+                  <li class="c2"><span class="one">2</span><span class="two">填写账号信息</span></li>
+                  <li class="c3"><span class="one">3</span><span class="two">注册成功</span></li>
+            </ul>            
+            <div class="many">
+                  <input type="text" placeholder="建议常用手机号">
+                  <!-- <i class="tip-right tip"></i> -->
+                   <div class="address">
+                        <span class="first">中国</span><span class="second">0086</span>
+                        <!-- <div>
+                           <span></span> 
+                           <input type="text" placeholder="搜索您的国家和地区"> 
 
+                           <p>
+                              <span class="red">常用国家/地区</span>
+                              <span>A</span>  
+                              <span>B</span>  
+                              <span>C</span>  
+                              <span>D</span>  
+                              <span>E</span>  
+                              <span>F</span>  
+                              <span>G</span>  
+                              <span>H</span>  
+                              <span>J</span>  
+                              <span>K</span>  
+                              <span>L</span>  
+                              <span>M</span>  
+                              <span>N</span>  
+                              <span>P</span>  
+                              <span>R</span>  
+                              <span>S</span>  
+                              <span>T</span>  
+                              <span>W</span>  
+                              <span>X</span>  
+                              <span>Y</span>  
+                              <span>Z</span>  
+                           </p>
+                            <p>常用国家/地区</p>
+                               <ol class="usually group-list">
+                                  <li>
+                                        <span></span>
+                                        <span>中国台湾</span>
+                                        <span>0886</span>
+                                  </li>
+                                  <li>
+                                        <span></span>
+                                        <span>中国香港</span>
+                                        <span>0852</span>
+                                  </li>
+                                  <li>
+                                        <span></span>
+                                        <span>澳大利亚</span>
+                                        <span>0061</span>
+                                  </li>
+                                  <li>
+                                        <span></span>
+                                        <span>美国</span>
+                                        <span>0001</span>
+                                  </li>
+                                  <li>
+                                        <span></span>
+                                        <span>马来西亚</span>
+                                        <span>0060</span>
+                                  </li>
+                                  <li>
+                                        <span></span>
+                                        <span>新加坡</span>
+                                        <span>0065</span>
+                                  </li>
+                                  <li>
+                                        <span></span>
+                                        <span>日本</span>
+                                        <span>0081</span>
+                                  </li>
+                                  <li>
+                                        <span></span>
+                                        <span>新西兰</span>
+                                        <span>0064</span>
+                                  </li>
+                                  <li>
+                                        <span></span>
+                                        <span>加拿大</span>
+                                        <span>0001</span>
+                                  </li>
+                                  <li>
+                                        <span></span>
+                                        <span>韩国</span>
+                                        <span>0082</span>
+                                  </li>
+                              </ol> 
+                              <ol class="A group-list">
+                                    <li>
+                                          <span></span>
+                                          <span>澳大利亚</span>
+                                          <span>0061</span>
+                                    </li>
+                                    <li>
+                                          <span></span>
+                                          <span>阿富汗</span>
+                                          <span>0093</span>
+                                    </li>
+                                    <li>
+                                          <span></span>
+                                          <span>阿塞拜疆</span>
+                                          <span>0994</span>
+                                    </li>
+                                    <li>
+                                          <span></span>
+                                          <span>阿曼</span>
+                                          <span>0968</span>
+                                    </li>
+                                    <li>
+                                          <span></span>
+                                          <span>阿联酋</span>
+                                          <span>0971</span>
+                                    </li>
+                                    <li>
+                                          <span></span>
+                                          <span>阿森松岛</span>
+                                          <span>0247</span>
+                                    </li>
+                                    <li>
+                                          <span></span>
+                                          <span>埃及</span>
+                                          <span>0020</span>
+                                    </li>
+                                    <li>
+                                          <span></span>
+                                          <span>埃塞俄比亚</span>
+                                          <span>0251</span>
+                                    </li>
+                                    <li>
+                                          <span></span>
+                                          <span>阿尔及利亚</span>
+                                          <span>0213</span>
+                                    </li>
+                              </ol>
+                        </div> -->
+                  </div> 
+            </div>
+            <!-- <p class="tip1 tip">验证完成后，你可以使用该手机登录或找回密码</p> -->
+            <p class="tip2 tip">请输入手机号</p>
+            <p class="tip3 tip">格式错误</p>
+            <button class="bt1">点击按钮进行验证</button>
+            <p class="tip4 tip">请完成验证</p>
+            <button class="bt2">下一步</button>
+            <ol>
+                  <li><span class="people"></span>企业用户注册</li>
+                  <li><span class="earth"></span>海外用户注册</li>
+            </ol> 
+            
+         </main>
+       
+         <footer>
+                  <p><a href="#">关于我们</a><a href="#">联系我们</a><a href="#">人才招聘</a><a href="#">商家入驻</a><a href="#">广告服务</a><a href="#">手机京东</a><a href="#">友情链接</a><a href="#">销售联盟</a><a href="#">京东社区</a><a href="#">京东公益</a><a href="#">English Site</a></p>
+                  <p>Copyright © 2004-2020  京东JD.com 版权所有</p>
+         </footer>
+         </form>
+         
     </div>
     <!-- 注册页面 end -->
 
@@ -143,47 +259,6 @@
         </div>
     </footer>
     <!-- 底部模块 end -->
-    <script>
-        let now_step_caozuo = document.querySelector('.now_step_caozuo');
-        let jiasaw_container = now_step_caozuo.querySelector('.container');
-        let next_tip = now_step_caozuo.querySelector('.next_tip');
-        let btn_yanzheng = now_step_caozuo.querySelector('.btn_yanzheng');
-        let code_yanzheng = now_step_caozuo.querySelector('.code_yanzheng');
-        let btn_phonecode = code_yanzheng.querySelector('.btn-phonecode');
-        let i_status = code_yanzheng.querySelector('.i-status');
-        let audio_tip = code_yanzheng.querySelector('.audio-tip');
-        jigsaw.init({
-            el: document.getElementById('captcha'),
-            onSuccess: function() {
-                document.getElementById('msg').innerHTML = '登录成功！';
-                next_tip.disabled = false;
-                jiasaw_container.style.display = 'none';
-                btn_yanzheng.style.display = 'none';
-                code_yanzheng.style.display = 'block';
-                i_status.style.display = 'block';
-                audio_tip.style.display = 'none';
-                let n = 120;
-                var set_code = setInterval(() => {
-                    if (n > 0) {
-                        btn_phonecode.innerHTML = n + 's后重新获取'
-                    } else {
-                        btn_phonecode.innerHTML = '重新获取'
-                        i_status.style.display = 'none';
-                        audio_tip.style.display = 'block';
-                        clearInterval(set_code);
-                    }
-                    n--;
-                }, 1000);
-                set_code;
-
-            },
-            onFail: cleanMsg,
-            onRefresh: cleanMsg
-        })
-
-        function cleanMsg() {
-            document.getElementById('msg').innerHTML = '';
-        }
     </script>
     <script src="./js/tools.js"></script>
     <script src="./js/register.js"></script>
