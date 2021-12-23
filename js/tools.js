@@ -46,3 +46,73 @@ function getStyle(ele, attr) {
         return ele.currentStyle[attr]
     }
 }
+
+//axios方法
+class axios {
+    static get(params = {}) {
+        params.method = 'get';
+        return axios.http(params);
+    }
+    static post(params = {}) {
+      params.method = 'post';
+        return axios.http(params);
+    }
+    static http(params) {
+        //解析参数
+        let {
+          method,
+            url,
+            data,
+            dataType = 'json',
+        } = params;
+        //url不为空
+        if (!url) {
+            //抛出错误
+            throw new Error('url值不为空');
+        }
+        let msg = null;
+        if (data) {
+            //将data传入的数据存入新建的数组msg
+            msg = [];
+            for (let attr in data) {
+                msg.push(`${attr}=${data[attr]}`)
+            }
+            msg = msg.join('&');
+            //判断如果是get请求则把参数拼接到url后面
+            if (method == 'get') {
+                url = url + '?' + msg;
+                msg = null;
+            }
+        }
+        //创建Promise对象
+        return new Promise((resolve, reject) => {
+            //创建对象
+            const xhr = new XMLHttpRequest();
+            //打开连接
+            xhr.open(method, url);
+            //设置请求头
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            //发送请求
+            xhr.send(msg);
+            //处理响应
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    //HTTP状态码 2**表示成功
+                    if (xhr.status == 200 ) {
+                        let data = xhr.response;
+                        //如果从后端传回json数据则进行转换
+                        if (dataType == 'json') {
+                            data = JSON.parse(data);
+                        }
+                        resolve(data);
+                    } else {
+                        // error && error(xhr.status);
+                        reject(xhr.status);
+                    }
+                }
+            }
+        })
+  
+    }
+  }
+  

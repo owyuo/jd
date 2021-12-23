@@ -267,9 +267,11 @@
   color: #fff;
   font-size: 14px;
   font-weight: 700;
+  vertical-align: top;
 }
 .shop_search .search_item .left button:hover {
   border: 1px solid #333;
+  /* vertical-align: top; */
 }
 .jd_car_foot {
   width: 100%;

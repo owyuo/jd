@@ -651,6 +651,7 @@
   background-color: #dd1bc6;
 }
 .zhuliren .shop_items .right_shop li .goods_msg h4 {
+  cursor: pointer;
   display: inline-block;
   font-weight: 700;
   color: #fff;
@@ -1522,6 +1523,24 @@
   font-size: 18px;
   font-weight: 700;
 }
+
+.for_you_goodslist li .goods_msg .nomean {
+  cursor: pointer;
+  display: block;
+  font-weight: 700;
+  font-size: 16px;
+  /* font-family: 'icomoon'; */
+  text-align: center;
+}
+/* .for_you_goodslist li .goods_msg::after {
+  margin-left: 15px;
+  background-color: #dd1bc6;
+  content: "加入购物车";
+  font-family: 'icomoon';
+  font-size: 14px;
+  text-align: center;
+  color: #fff;
+} */
 .for_you_goodslist li .goods_msg .price i {
   font-size: 12px;
 }

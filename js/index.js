@@ -43,8 +43,8 @@ for (let i=0;i<tabMenu_li.length;i++){
     $$('.user_tab_items .tab_item')[i].onmouseleave = function(event){
         let target =event.target;
             if(target.nodeType ==1){
-                console.log(this);
-                console.log(this.childNodes.childNodes);
+                // console.log(this);
+                // console.log(this.childNodes.childNodes);
                 this.childNodes[3].style.display='none';
         }
     }
@@ -93,7 +93,8 @@ function callback(data){
 }
 
 /*****第一个大轮播图*****/
-let container = $('.shop_nav .lunbotu .content');
+(function (){
+    let container = $('.shop_nav .lunbotu .content');
 let pic = container.children
 let numBtn = $('.dotted');
 let next = $('.lunbotu .btn_r');
@@ -210,6 +211,7 @@ showBtn.onmouseleave = function(){
             auto()
         }
 
+})() 
 
 /***第二个小轮播**/
 
@@ -258,7 +260,7 @@ swiper_prev.onclick = function(){
             numb = right_pic.length - 1;
             swiper_container.style.left = -right_pic[0].offsetWidth*numb+'px';
             }
-        num--;
+        numb--;
         animation(swiper_container, -right_pic[0].offsetWidth * numb, 'left', function () {
            flag1=true;
         })
@@ -289,7 +291,7 @@ let minuteBox = $('.count_time .minute');
 let secondsBox = $('.count_time .seconds');
 
 //设置将来的时间
-let  endTime = new Date('2021/12/23 10:00:00');
+let  endTime = new Date('2025/12/23 10:00:00');
 //先调用一次,页面初次加载时显示的是h1标签中给定的时间，然后再显示现在的时间
 //需要先调用一次函数直接显示现在的时间，然后一秒之后再调用定时器里的djs
 djs();
@@ -358,6 +360,45 @@ seckill_prev.onclick = function(){
             }
         }
        
+//加入购物车
+let index_ul = $('.for_you_goodslist');
+console.log(index_ul);
+async function getGoods() {
+    let data = await axios.get({
+        url:'./js/data.json',
+        data:''
+    }).then(()=>{
+        console.log(data);
+    })
+    let html ='';
+    data.forEach(goods=>{
+        html+=`<li>
+        <img src="${goods.src}" alt=" ">
+        <div class="goods_msg ">
+            <h4 class="googs_title two_row ">
+                 ${goods.name}
+            </h4>
+            <div class="price ">
+                <i>￥</i>${goods.price}<i>00</i>
+            </div>
+            <a  href="#none" class="nomean" onclick="addCart(${goods.id},1)">加入购物车</a>
+            <div class="lookfor_sim ">
+                <div class="xiangsi ">找相似</div>
+            </div>
+        </div>
+    </li>`
+    })
+    index_ul.innerHTML =html;
+} 
 
 
-
+getGoods();
+function addCart(){
+    let cartGoods = localStorage.getItem('cart');
+    if(cartGoods){
+        console.log(123);
+    }else{
+        cartGoods =  {[id]:num}
+        localStorage.setItem('cart',JSON.stringify(cartGoods))
+    }
+}
