@@ -4,11 +4,8 @@
 	position: fixed;
 	top:40%;
 	right: 0px;
-	/* background: url("../images/icon\ \(1\).png") -367px 0px; */
 }
-/* .fix:hover{
-	background: url("../images/icon\ \(1\).png") -333px 0px;
-} */
+
 header{
 	box-shadow: 0px 2px 10px #f2f2f2; 
 }

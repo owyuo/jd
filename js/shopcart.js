@@ -30,7 +30,6 @@ $$('.location .loca li')[i].onclick = function (){
 //事件委托
 let tabMenu_li =$$('.user_tab_items .user_tab_menu');
 for (let i=0;i<tabMenu_li.length;i++){
-    // tabMenu_li[i].setAttribute('top_num',i);
     $$('.user_tab_items .tab_item')[i].onmouseenter = function(event){
         let target =event.target;
             if(target.nodeType ==1){
@@ -69,8 +68,7 @@ class Cart {
         let tar = event.target;
         // console.log(tar);
         // console.log(1111111111);
-        //判断是否是check-one 也就是单选按钮
-        //这里不使用className是因为单选按钮有两个类名check-one check
+
         tar.classList.contains('j-checkbox') && this.oneCheckFn(tar);
         //判断是否点击添加
         tar.classList.contains('increment') && this.addClickFn(tar);
@@ -129,30 +127,20 @@ class Cart {
 
 
      /***全选的实现****/
-
      checkAll() {
-
         let allObj = $$('.checkall');
         // console.log(allObj);
-        
         //给全选按钮绑定事件，事件的回调函数this指向节点对象，使用bind
         allObj[0].addEventListener('click', this.allClickFn.bind(this, 1))
         allObj[1].addEventListener('click', this.allClickFn.bind(this, 0))
     }
-    //使用bind和event时，bind传递的参数在前
     allClickFn(checkAllIndex, event) {
-        // console.log(this);
-        // console.log(checkAllIndex);
-        // console.log(event);
         //获取点击的全选按钮的状态 返回结果为true
         let status = event.target.checked;
         // console.log(status);
         $$('.checkall')[checkAllIndex].checked = status;
         this.oneChecked(status);
-        //统计数量和价格
-        //传递全选状态   如果是都未选中  status值为false
-        // this.subTotal(status);
-
+        this.subTotal(status);
     }
     /***单个商品的选中****/
     //点击全选后所有的单选框选中
@@ -163,20 +151,17 @@ class Cart {
         })
     }
 
-    /***商品单选框回调函数***/
-    //将单选按钮的点击事件委托给tbody来实现
+ /***商品单选框回调函数***/
+//将单选按钮的点击通过事件委托来实现
 
     oneCheckFn(target) {
-
         // console.log(target.checked);
-
-        //不用传递status，使用默认值true
         this.subTotal();
         //单选框全选中的话，让全选框也选中
         
         if (!target.checked) {
-            $$(' .checkall')[0].checked = false;
-            $$(' .checkall')[1].checked = false;
+            $$('.checkall')[0].checked = false;
+            $$('.checkall')[1].checked = false;
             return;
           }
         /******判断购物车中商品数量*****/
@@ -198,14 +183,12 @@ subTotal ( sta = true){
     let totalNum= 0 ,totalPrice = 0;
     sta && $$('.j-checkbox').forEach(ele=>{
         if(ele.checked){
-            //找到tr
             let listObj = ele.parentNode.parentNode;
             // console.log(listObj);
             //获取小计和数量  -0是将获取到的价格转从字符型换成数值型
             totalNum+=(listObj.querySelector('.c-container .quantity-form .itxt').value-0);
             totalPrice +=(listObj.querySelector('.c-container .cart-item .p-sum').innerHTML-0);
         }
-
     })
     $('.cart-floatbar .price-sum em').innerHTML = totalPrice;
     $('.cart-floatbar .amount-sum em').innerHTML = totalNum;
@@ -213,10 +196,9 @@ subTotal ( sta = true){
 
 /***点击增加数量*****/
 addClickFn(target){
-    //获取数量  上一个兄弟节点
     let num = target.previousElementSibling;
+    //-0是将他转换成数字
     num.value = num.value -0 +1;
-    //获取小计
     let sub = target.parentNode.parentNode.nextElementSibling;
     let price = target.parentNode.parentNode.previousElementSibling.innerHTML;
     // sub.innerHTML = (num.value*price).toFixed(2);
@@ -226,26 +208,22 @@ addClickFn(target){
     //当input是选中时。统计价格和数量
     cartItem_list.querySelector('.j-checkbox').checked && this.subTotal();
     //修改local的值
-     this.modifyLocal(cartItem_list.getAttribute('goods-id'),num.value);
+     this.changeNum_list(cartItem_list.getAttribute('goods-id'),num.value);
 }
 //点击减少数量
 decrementClickFn(target){
-    //获取数量  上一个兄弟节点
     let num = target.nextElementSibling;
     if(num.value == '1') return;
     num.value = num.value -0 -1;
-    
     //获取小计
     let sub = target.parentNode.parentNode.nextElementSibling;
     let price = target.parentNode.parentNode.previousElementSibling.innerHTML;
-    // sub.innerHTML = (num.value*price).toFixed(2);
-    //此处*100再/100 处理数据
     sub.innerHTML = parseInt(((num.value*price)*100)/100);
     let cartItem_list = target.parentNode.parentNode.parentNode
-    //当input是选中时。统计价格和数量
+
     cartItem_list.querySelector('.j-checkbox').checked && this.subTotal();
-    //修改local的值
-     this.modifyLocal(cartItem_list.getAttribute('goods-id'),num.value);
+    //修改数量
+     this.changeNum_list(cartItem_list.getAttribute('goods-id'),num.value);
 }
 
 
@@ -265,10 +243,10 @@ delClickFn(target){
            del_list.querySelector('.j-checkbox').checked && that.subTotal();
         }
       })
-      this.modifyLocal(del_list.getAttribute('goods-id'));
+      this.changeNum_list(del_list.getAttribute('goods-id'));
 }
 /****修改数量，num为0删除****/
-modifyLocal(id,num = 0){
+changeNum_list(id,num = 0){
     console.log(id ,num);
     //取出local数据
     let cartGoods = localStorage.getItem('cart');
