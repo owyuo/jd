@@ -37,7 +37,43 @@ loginBtn.onclick = function (){
     if(inputel.value == 'zs' && psw.value ==123456){
         location.href = 'index.html';
     }
+    else {
+        // verification(inputel.value);
+    let verData = localStorage.getItem('teldata');
+    verData = JSON.parse(verData);
+    console.log(verData);
+    //存在用户  转到首页
+    verData.key== inputel.value && (location.href='index.html');
+    //如过用户不存在弹出模态框
+    layer.open({
+        title: '用户登陆'
+        , content: '用户不存在，先去注册?',
+        btn: ['取消', '确认']
+        , btn2: function (index, layero) {
+        //   console.log(target);
+          location.href = 'sign.html';
+        }
+      })
+
+    }
 }
+// function verification (pnum){
+//     let verData = localStorage.getItem('teldata');
+//     verData = JSON.parse(verData);
+//     //存在用户  转到首页
+//     verDate == pnum && (location.href='index.html');
+//     //如过用户不存在弹出模态框
+//     layer.open({
+//         title: '用户登陆'
+//         , content: '用户不存在，先去注册?',
+//         btn: ['取消', '确认']
+//         , btn2: function (index, layero) {
+//         //   console.log(target);
+//           location.href = 'sign.html';
+//         }
+//       })
+
+// }
 
 // obj["zhangsan"] = ['zs','123456'];
 //         // 设置存储属性 用户名 密码

@@ -91,6 +91,7 @@ function callback(data){
     }
     )
 }
+//点击图标进入购物车界面
 
 /*****第一个大轮播图*****/
 (function (){
@@ -211,7 +212,7 @@ showBtn.onmouseleave = function(){
             auto()
         }
 
-})() 
+})
 
 /***第二个小轮播**/
 
